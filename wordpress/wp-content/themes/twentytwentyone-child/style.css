@@ -1,0 +1,22 @@
+/*
+Theme Name: Моя дочерняя тема
+Template: twentytwentyone
+
+Не обязательные параметры:
+Theme URI: http://example.com/
+Description: Дочерняя тема для темы  twentytwentyone
+Author: samatoki
+Author URI: http://example.com/about/
+Version: 1.0
+*/
+
+@import url("../twentytwentyone/style.css");
+body {
+	max-width: 800px;
+	
+}
+
+.header, .footer {
+	margin: 2em auto;
+	text-align: center;
+}
