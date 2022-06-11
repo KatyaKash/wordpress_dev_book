@@ -33,5 +33,19 @@
 		<?php wp_nav_menu();?>
 		<h1><?php bloginfo( 'name' ); ?></h1>
 		<h2><?php bloginfo( 'description' ); ?></h2>
-		 <?php get_search_form();?>
+
+
+		 <?php get_search_form();
+
+$query = new WP_Query( 'author=Samatoki' );
+
+if ( $query->have_posts() ) {
+
+	echo 'посты от Samatoki: ';
+	while ( $query->have_posts() ) {
+		$query->the_post();
+		echo '<p><a href="'. get_permalink() .'">'. get_the_title() .'</a></p>';
+}}
+wp_reset_postdata();
+?>
 	</header>
