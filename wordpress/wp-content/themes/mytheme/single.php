@@ -5,6 +5,9 @@
 				the_post();
 
 				echo '<h1>'. get_the_title() .'</h1>';
+				if( current_user_can('edit_posts') ){
+	echo '<br>'.edit_post_link().'<br>';
+}
 				the_author();
 				echo '<br>'.get_the_time('g:i:s').'<br>';
 				echo get_the_date('d.m.Y').'<br>';

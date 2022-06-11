@@ -150,4 +150,69 @@ function new_user_registration(){
 	 wp_insert_user( $userdata ) ;
 }
 new_user_registration();*/
+
+add_action('admin_menu', function(){
+	add_menu_page( 'Дополнительные настройки сайта', 'Пульт', 'manage_options', 'site-options', 'add_my_setting', '', 4 );
+} );
+
+// функция отвечает за вывод страницы настроек
+// подробнее смотрите API Настроек: http://wp-kama.ru/id_3773/api-optsiy-nastroek.html
+function add_my_setting(){
+	?>
+	<div class="wrap">
+		<h2><?php echo get_admin_page_title() ?></h2>
+
+		<?php
+		// settings_errors() не срабатывает автоматом на страницах отличных от опций
+		if( get_current_screen()->parent_base !== 'options-general' )
+			settings_errors('название_опции');
+		?>
+
+		<form action="options.php" method="POST">
+			<?php
+				settings_fields("opt_group");     // скрытые защитные поля
+				do_settings_sections("opt_page"); // секции с настройками (опциями).
+				submit_button();
+			?>
+		</form>
+	</div>
+	<?php
+
+}
+function wpkama_wp_maintenance_mode( $action = 'on' ){
+	global $wp_filesystem;
+
+	if( ! $wp_filesystem ){
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+
+		WP_Filesystem();
+
+		if ( 'direct' !== $wp_filesystem->method ) {
+			/** @noinspection ForgottenDebugOutputInspection */
+			wp_die( 'WP_Filesystem need to be direct type.' );
+		}
+	}
+
+	$maintenance_file = $wp_filesystem->abspath() . '.maintenance';
+
+	// Create maintenance file to signal that we are upgrading.
+	if( 'on' === $action ){
+		$maintenance_string = sprintf( '<?php $upgrading = %d; ?>', time() );
+
+		$wp_filesystem->delete( $maintenance_file );
+		$wp_filesystem->put_contents( $maintenance_file, $maintenance_string );
+	}
+	// Remove maintenance file, we're done with potential site-breaking changes.
+	else {
+		$wp_filesystem->delete( $maintenance_file );
+	}
+
+}
+
+/*wpkama_wp_maintenance_mode( 'on' );
+
+sleep(6); // симулируем какие-то действия
+
+wpkama_wp_maintenance_mode( 'off' )*/
+
 ?>

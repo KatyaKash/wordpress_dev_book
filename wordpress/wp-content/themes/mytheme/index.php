@@ -36,10 +36,12 @@ foreach( get_the_category() as $category ){
 }
 				echo '<br><br>';
 					the_content('Подробнее...');
-
-					echo 'Рубрики: ';
+if( current_user_can('edit_posts') ){
+	echo edit_post_link();
+}
+					echo '<br>Рубрики: ';
 					the_category( '; ' );
-					echo the_tags('<p>Метки: ',', ','</p>');
+					echo the_tags('<br><p>Метки: ',', ','</p>');
 
 				}
 
