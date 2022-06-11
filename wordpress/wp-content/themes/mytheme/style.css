@@ -1,0 +1,10 @@
+body {
+	max-width: 700px;
+	margin: 2em auto;
+}
+
+.header, .footer {
+	margin: 2em auto;
+	text-align: center;
+}
+

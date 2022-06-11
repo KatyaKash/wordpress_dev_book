@@ -1,0 +1,21 @@
+h2 {
+	font-style: italic;
+
+}
+.menu{
+	text-align: left;
+	font-family: 'Arial';
+	color: violet;
+	border: 1px solid violet;
+	background-color: white;
+padding: 10px 30px;
+}
+.menu li{
+	list-style-type: none;
+}
+.custom{
+	margin-top: 20px;
+	background-color: white;
+	width: 500px;
+	padding: 20px;
+}
